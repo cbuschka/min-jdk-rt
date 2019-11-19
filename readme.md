@@ -1,10 +1,10 @@
-# poc for custom jdk 11 runtime
+# POC for custom jdk 11 runtime
 
-### prerequesites
+### Prerequesites
 * docker
 * make
 
-### build
+### Usage
 
 ```
 make docker
