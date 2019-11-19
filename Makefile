@@ -5,7 +5,7 @@ all:	clean docker run
 
 clean:
 	@echo "*****************************" && \
-	echo " cleaning..." && \
+	echo "* cleaning..." && \
 	echo "*****************************"
 	rm -rf ${PROJECT_DIR}/target/
 
@@ -14,7 +14,7 @@ init:
 
 build:	init
 	@echo "*****************************" && \
-	echo " compiling..." && \
+	echo "* compiling..." && \
 	echo "*****************************"
 	cd ${PROJECT_DIR}/src \
 		&& ${JAVA_HOME}/bin/javac -d ${PROJECT_DIR}/target/classes ./module-info.java \
@@ -22,13 +22,13 @@ build:	init
 
 package:	build
 	@echo "*****************************" && \
-	echo " packaging..." && \
+	echo "* packaging..." && \
 	echo "*****************************"
 	cd ${PROJECT_DIR}/target/classes && ${JAVA_HOME}/bin/jar cvf ${PROJECT_DIR}/target/hello.jar .
 
 link:	package
 	@echo "*****************************" && \
-	echo " linking runtime..." && \
+	echo "* linking runtime..." && \
 	echo "*****************************"
 	${JAVA_HOME}/bin/jdeps --module-path ${PROJECT_DIR}/target/classes -s --module hello
 	# https://github.com/docker-library/openjdk/issues/217
@@ -41,13 +41,13 @@ link:	package
 
 docker:
 	@echo "*****************************" && \
-	echo " building build container..." && \
+	echo "* building build container..." && \
 	echo "*****************************"
 	docker build -t min-jdk11-rt ${PROJECT_DIR} \
 		&& docker run -v ${PROJECT_DIR}:/work -u $(shell id -u):$(shell id -g) min-jdk11-rt make clean link
 
 run:	docker
 	@echo "*****************************" && \
-	echo " running..." && \
+	echo "* running..." && \
 	echo "*****************************"
 	times ./target/dist/bin/java -cp target/hello.jar hello.Hello

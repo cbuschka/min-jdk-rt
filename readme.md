@@ -17,11 +17,11 @@ make
 ```
 conni@herbie:~/work/conni/github/cbuschka/min-jdk11-rt [master]$ make
 *****************************
- cleaning...
+* cleaning...
 *****************************
 rm -rf /home/conni/work/conni/github/cbuschka/min-jdk11-rt/target/
 *****************************
- building build container...
+* building build container...
 *****************************
 docker build -t min-jdk11-rt /home/conni/work/conni/github/cbuschka/min-jdk11-rt \
 	&& docker run -v /home/conni/work/conni/github/cbuschka/min-jdk11-rt:/work -u 1000:1001 min-jdk11-rt make clean link
@@ -42,17 +42,17 @@ Removing intermediate container 81fbc50857c1
 Successfully built f9357e587e15
 Successfully tagged min-jdk11-rt:latest
 *****************************
- cleaning...
+* cleaning...
 *****************************
 rm -rf /work/target/
 *****************************
- compiling...
+* compiling...
 *****************************
 cd /work/src \
 	&& /usr/local/openjdk-11/bin/javac -d /work/target/classes ./module-info.java \
 	&& /usr/local/openjdk-11/bin/javac -d /work/target/classes --module-path /work/target/classes ./hello/Hello.java
 *****************************
- packaging...
+* packaging...
 *****************************
 cd /work/target/classes && /usr/local/openjdk-11/bin/jar cvf /work/target/hello.jar .
 added manifest
@@ -60,7 +60,7 @@ added module-info: module-info.class
 adding: hello/(in = 0) (out= 0)(stored 0%)
 adding: hello/Hello.class(in = 422) (out= 291)(deflated 31%)
 *****************************
- linking runtime...
+* linking runtime...
 *****************************
 /usr/local/openjdk-11/bin/jdeps --module-path /work/target/classes -s --module hello
 hello -> java.base
@@ -79,7 +79,7 @@ du -sh /usr/local/openjdk-11
 du -sh /work/target/dist
 29M	/work/target/dist
 *****************************
- running...
+* running...
 *****************************
 times ./target/dist/bin/java -cp target/hello.jar hello.Hello
 0m0.002s 0m0.001s
