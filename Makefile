@@ -1,7 +1,7 @@
 JAVA_HOME := /usr/local/openjdk-11
 PROJECT_DIR := $(shell pwd)
 
-all:	clean docker
+all:	clean docker run
 
 clean:
 	rm -rf ${PROJECT_DIR}/target/
@@ -29,4 +29,7 @@ link:	package
 
 docker:
 	docker build -t min-jdk11-rt ${PROJECT_DIR} \
-	&& docker run -v ${PROJECT_DIR}:/work -u $(shell id -u):$(shell id -g) min-jdk11-rt make link
+		&& docker run -v ${PROJECT_DIR}:/work -u $(shell id -u):$(shell id -g) min-jdk11-rt make clean link
+
+run:	docker
+	times ./target/dist/bin/java -cp target/hello.jar hello.Hello
