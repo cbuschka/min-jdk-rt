@@ -1,7 +1,7 @@
-JAVA_HOME := /usr/lib/jvm/java-11-openjdk
+JAVA_HOME := /usr/local/openjdk-11
 PROJECT_DIR := $(shell pwd)
 
-all:	clean link
+all:	clean docker
 
 clean:
 	rm -rf ${PROJECT_DIR}/target/
@@ -17,7 +17,7 @@ build:	init
 package:	build
 	cd ${PROJECT_DIR}/target/classes && ${JAVA_HOME}/bin/jar cvf ${PROJECT_DIR}/target/hello.jar .
 
-link:	build
+link:	package
 	${JAVA_HOME}/bin/jdeps --module-path ${PROJECT_DIR}/target/classes -s --module hello
 	# https://github.com/docker-library/openjdk/issues/217
 	# https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=905575
@@ -26,3 +26,7 @@ link:	build
 	strip -p --strip-unneeded ${PROJECT_DIR}/target/dist/lib/server/libjvm.so
 	du -sh ${JAVA_HOME}
 	du -sh ${PROJECT_DIR}/target/dist
+
+docker:
+	docker build -t min-jdk11-rt ${PROJECT_DIR} \
+	&& docker run -v ${PROJECT_DIR}:/work -u $(shell id -u):$(shell id -g) min-jdk11-rt make link
