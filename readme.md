@@ -7,7 +7,7 @@
 ### Usage
 
 ```
-make docker
+make
 ```
 
 ## License
