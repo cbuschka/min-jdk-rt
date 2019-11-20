@@ -50,4 +50,4 @@ run:	docker
 	@echo "*****************************" && \
 	echo "* running..." && \
 	echo "*****************************"
-	times ./target/dist/bin/java -cp target/hello.jar hello.Hello
+	times ./target/dist/bin/java --module-path target/hello.jar --module hello/hello.Hello
