@@ -1,7 +1,7 @@
 PROJECT_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 WORK_DIR=/work
 
-all:	clean docker run
+all:	clean build run
 
 clean:
 	@echo "*****************************" && \
@@ -52,7 +52,7 @@ build:	docker-image
 	echo "********************************"
 	docker run -v ${PROJECT_DIR}:/work -u $(shell id -u):$(shell id -g) min-jdk-rt:local make clean link
 
-run:	docker
+run:	build
 	@echo "*****************************" && \
 	echo "* running..." && \
 	echo "*****************************"
