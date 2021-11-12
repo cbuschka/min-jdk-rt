@@ -1,8 +1,8 @@
-FROM openjdk:11-jdk
+FROM openjdk:17-buster
 
 RUN export DEBIAN_FRONTEND=noninteractive; \
-	apt-get update \
-	&& apt-get install make binutils \
+	apt update -y \
+	&& apt install -y make binutils \
         && apt-get autoremove -y \
         && rm -rf /var/lib/apt/lists/*
 
