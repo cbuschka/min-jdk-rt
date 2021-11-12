@@ -1,8 +1,8 @@
 FROM openjdk:11-jdk
 
 RUN export DEBIAN_FRONTEND=noninteractive; \
-	apt-get update \
-	&& apt-get install make binutils \
+	apt-get update -y \
+	&& apt-get install -y make binutils \
         && apt-get autoremove -y \
         && rm -rf /var/lib/apt/lists/*
 
